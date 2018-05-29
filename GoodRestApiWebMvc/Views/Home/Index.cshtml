@@ -1,0 +1,57 @@
+﻿
+@model PagedList.IPagedList<GoodRestApiWebMvc.Models.RootObject>
+@using PagedList.Mvc
+
+@{
+    ViewBag.Title = "Home Page";
+
+}
+
+
+<div class="jumbotron">
+    <h1>Rest API</h1>
+    <h2> The Total number of Feeds between 01/01/2016 to 31/12/2017 is @ViewBag.FeedsCount</h2>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <table style="border : solid 2px">
+            <tr>
+                <th> Id</th>
+                <th> Test</th>
+                <th> DateStamp</th>
+            </tr>
+            @foreach (var val in Model.ToList())
+            {
+                <tr>
+
+                    <td>
+                        <span>
+                            @val.id
+                        </span>
+
+                    </td>
+                    <td>
+                        <span>
+                            @val.text
+                        </span>
+
+                    </td>
+                    <td>
+                        <span>
+                            @val.stamp
+                        </span>
+
+                    </td>
+                </tr>
+
+            }
+
+        </table>
+
+    </div>
+    <div class="pagination" style="margin-left: 400px">
+        Page @(ViewBag.PageCount < ViewBag.Pageno ? 0 : ViewBag.Pageno)
+        of @ViewBag.PageCount   @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
+    </div>
+</div>
